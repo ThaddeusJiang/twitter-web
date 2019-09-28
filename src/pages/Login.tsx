@@ -71,13 +71,20 @@ const LoginPage: React.FC = () => {
       {hasAccount ? (
         <button
           onClick={() => {
-            const savedPassword = accountMap[username].password
-            console.debug({ savedPassword, password })
-            if (savedPassword === password) {
-              sessionStorage.setItem('loginBy', JSON.stringify({ username }))
-              navigate(`/${username}`)
+            if (!accountMap || !accountMap[username]) {
+              alert('no this account')
             } else {
-              setPasswordError(true)
+              const savedPassword =
+                accountMap &&
+                accountMap[username] &&
+                accountMap[username].password
+              console.debug({ savedPassword, password })
+              if (savedPassword === password) {
+                sessionStorage.setItem('loginBy', JSON.stringify({ username }))
+                navigate(`/${username}`)
+              } else {
+                setPasswordError(true)
+              }
             }
           }}
         >
