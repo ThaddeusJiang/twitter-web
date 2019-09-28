@@ -60,8 +60,8 @@ const EditTweetCard = ({
             const newTweet = {
               id: newId,
               content,
-              loginBy,
               updatedAt: newUpdatedAt,
+              updatedBy: loginBy,
             }
             console.debug({ tweet, newId, newTweet })
 

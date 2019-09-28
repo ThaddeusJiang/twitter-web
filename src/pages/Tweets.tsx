@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { RouteComponentProps } from '@reach/router'
 import EditTweetCard from '../components/EditTweetCard'
+import TweetCard, { TweetCardType } from '../components/TweetCard'
 
-const TweetsPage: React.FC = () => {
+const TweetsPage: React.FC<RouteComponentProps> = () => {
   // subscribe
   const [latestUpdatedAt, setLatestUpdatedAt] = useState(new Date().toString())
 
@@ -21,7 +23,7 @@ const TweetsPage: React.FC = () => {
 
   return (
     <section>
-      <h1>Tweetes Page</h1>
+      <h1>Tweets Page</h1>
       <EditTweetCard
         onCancel={() => console.debug('cancel')}
         onUpdateCallBack={setLatestUpdatedAt}
@@ -30,8 +32,17 @@ const TweetsPage: React.FC = () => {
         {tweets
           .slice()
           .reverse()
-          .map((item: { id: string; content: string }) => {
-            return <div key={item.id}>{item.content}</div>
+          .map((item: TweetCardType) => {
+            return (
+              <TweetCard
+                key={item.id}
+                id={item.id}
+                content={item.content}
+                updatedAt={item.updatedAt}
+                updatedBy={item.updatedBy}
+                onUpdateCallBack={setLatestUpdatedAt}
+              />
+            )
           })}
       </div>
     </section>

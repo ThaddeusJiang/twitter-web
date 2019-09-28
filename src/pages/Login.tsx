@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { navigate } from '@reach/router'
+import { RouteComponentProps } from '@reach/router'
 
-const LoginPage: React.FC = () => {
+const LoginPage: React.FC<RouteComponentProps> = () => {
   const [accountMap, setAccountMap] = useState()
 
   const accountMapStorage = window.localStorage.getItem('accountMap')

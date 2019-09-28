@@ -1,33 +1,52 @@
 import React from 'react'
+import { navigate } from '@reach/router'
 
-type TweetCardType = {
+export type TweetCardType = {
   id: string
   content: string
   updatedAt: string
-  updatedBy: {
-    username: string
-  }
+  updatedBy: string
+  onUpdateCallBack: (updatedAt: string) => void
 }
 
-const TweetCard = ({ id, content, updatedAt, updatedBy }: TweetCardType) => {
+const TweetCard = ({
+  id,
+  content,
+  updatedAt,
+  updatedBy,
+  onUpdateCallBack,
+}: TweetCardType) => {
   return (
-    <div>
+    <div
+      onClick={() => {
+        navigate(`/tweet/${id}`)
+      }}
+    >
       <div>
-        <div>{updatedBy.username}</div>
+        <div>{updatedBy}</div>
         <div>{content}</div>
       </div>
 
       <div>
         <button
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation()
             console.log(`edit ${id}`)
           }}
         >
           edit
         </button>
         <button
-          onClick={() => {
-            console.debug(`delete ${id}`)
+          onClick={(e) => {
+            e.stopPropagation()
+            const tweetsMapStorage = localStorage.getItem('tweetsMap')
+            const tweetsMap = tweetsMapStorage
+              ? JSON.parse(tweetsMapStorage)
+              : {}
+            delete tweetsMap[id]
+
+            localStorage.setItem('tweetsMap', JSON.stringify(tweetsMap))
+            onUpdateCallBack(new Date().toString())
           }}
         >
           delete
