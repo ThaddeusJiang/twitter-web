@@ -1,10 +1,14 @@
 import React from 'react'
 
-import './App.css'
 import Routes from './Routes'
+import Layout from './components/Layout'
 
 const App: React.FC = () => {
-  return <Routes />
+  return (
+    <Layout>
+      <Routes />
+    </Layout>
+  )
 }
 
 export default App
