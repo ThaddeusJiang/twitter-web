@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { RouteComponentProps } from '@reach/router'
 import EditTweetCard from '../components/EditTweetCard'
 import TweetCard, { TweetCardType } from '../components/TweetCard'
+import Layout from '../components/Layout'
+import LogoutButton from '../components/LogoutButton'
 
 const TweetsPage: React.FC<RouteComponentProps> = () => {
   // subscribe
@@ -22,30 +24,41 @@ const TweetsPage: React.FC<RouteComponentProps> = () => {
   }, [latestUpdatedAt])
 
   return (
-    <section>
-      <h1>Tweets Page</h1>
-      <EditTweetCard
-        onCancel={() => console.debug('cancel')}
-        onUpdateCallBack={setLatestUpdatedAt}
-      />
-      <div>
-        {tweets
-          .slice()
-          .reverse()
-          .map((item: TweetCardType) => {
-            return (
-              <TweetCard
-                key={item.id}
-                id={item.id}
-                content={item.content}
-                updatedAt={item.updatedAt}
-                updatedBy={item.updatedBy}
-                onUpdateCallBack={setLatestUpdatedAt}
-              />
-            )
-          })}
-      </div>
-    </section>
+    <Layout>
+      <section className="w-1/2 border m-4 p-4">
+        <div className="flex justify-between">
+          <h1 className="text-2xl ">Tweets</h1>
+          <LogoutButton />
+        </div>
+        <hr className="my-4" />
+
+        <EditTweetCard
+          onUpdateCallBack={() => {
+            setLatestUpdatedAt(new Date().toString())
+          }}
+        />
+        <hr className="my-4" />
+
+        <div>
+          {tweets
+            .slice()
+            .reverse()
+            .map((item: TweetCardType) => {
+              return (
+                <TweetCard
+                  key={item.id}
+                  id={item.id}
+                  content={item.content}
+                  updatedAt={item.updatedAt}
+                  updatedBy={item.updatedBy}
+                  onUpdateCallBack={setLatestUpdatedAt}
+                  editable={item.updatedBy === loginBy}
+                />
+              )
+            })}
+        </div>
+      </section>
+    </Layout>
   )
 }
 

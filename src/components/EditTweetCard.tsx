@@ -5,40 +5,37 @@ type EditTweetCardType = {
     id: string
     content: string
   }
-  onCancel: () => void
-  onUpdateCallBack: (updatedAt: string) => void
+
+  onUpdateCallBack: () => void
 }
 
-const EditTweetCard = ({
-  tweet,
-  onCancel,
-  onUpdateCallBack,
-}: EditTweetCardType) => {
+const EditTweetCard = ({ tweet, onUpdateCallBack }: EditTweetCardType) => {
   const { id, content: preContent } = tweet || {}
   const [content, setContent] = useState(preContent)
 
-  const loginBy = localStorage.getItem('loginBy')
+  const loginBy = sessionStorage.getItem('loginBy')
 
   return (
     <div>
       <textarea
+        className="shadow border w-full bg-blue-900"
         name="content"
         id="content"
-        cols={30}
-        rows={10}
         value={content}
         onChange={(e) => setContent(e.target.value)}
       ></textarea>
-      <div>
-        <button onClick={onCancel}>Cancel</button>
+
+      <div className="flex justify-end">
         <button
-          disabled={content === ''}
+          className={`btn  ${
+            !content ? 'bg-gray-700 text-white cursor-not-allowed' : 'btn-blue'
+          }`}
+          disabled={!content}
           onClick={() => {
             const tweetsMapStorage = localStorage.getItem('tweetsMap')
             const tweetsMap = tweetsMapStorage
               ? JSON.parse(tweetsMapStorage)
               : null
-
             let newId
             if (id) {
               newId = id
@@ -63,13 +60,13 @@ const EditTweetCard = ({
               updatedAt: newUpdatedAt,
               updatedBy: loginBy,
             }
-            console.debug({ tweet, newId, newTweet })
 
             localStorage.setItem(
               'tweetsMap',
               JSON.stringify({ ...tweetsMap, [newId]: newTweet }),
             )
-            onUpdateCallBack(newUpdatedAt)
+            setContent('')
+            onUpdateCallBack()
           }}
         >
           Send

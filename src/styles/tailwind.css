@@ -11391,6 +11391,53 @@ video {
   z-index: auto;
 }
 
+.btn {
+  font-weight: 700;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 0.25rem;
+}
+
+.btn-blue {
+  background-color: #4299e1;
+  color: #fff;
+}
+
+.btn-blue:hover {
+  background-color: #2b6cb0;
+}
+
+.avatar {
+  font-weight: 700;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+}
+
+.avatar-gray {
+  background-color: #a0aec0;
+  color: #fff;
+}
+
+.new-tweet-button {
+  font-weight: 700;
+  width: 3rem;
+  height: 3rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 9999px;
+  background-color: #48bb78;
+  color: #fff;
+}
+
+.heroicon-ui {
+  fill: white;
+}
+
 @media (min-width: 640px) {
   .sm\:sr-only {
     position: absolute;
