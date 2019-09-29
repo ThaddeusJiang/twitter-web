@@ -1,7 +1,12 @@
+import { format, isBefore } from 'date-fns'
+
+export { isBefore }
+
+const FORMAT = 'yyyy-MM-dd hh:mm'
+
 export const formatDateTime = (date: string) => {
   if (date) {
-    const value = new Date(date).toString()
-    return value
+    return format(new Date(date), FORMAT)
   }
   return ''
 }

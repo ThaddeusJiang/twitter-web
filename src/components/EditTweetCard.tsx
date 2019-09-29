@@ -16,7 +16,12 @@ const EditTweetCard = ({ tweet, onUpdateCallBack }: EditTweetCardType) => {
   const loginBy = sessionStorage.getItem('loginBy')
 
   return (
-    <div>
+    <div
+      role="presentation"
+      onClick={(e) => {
+        e.stopPropagation()
+      }}
+    >
       <textarea
         className="shadow border w-full bg-blue-900"
         name="content"

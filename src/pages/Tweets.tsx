@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { RouteComponentProps } from '@reach/router'
+import { isBefore } from '../utils'
 import EditTweetCard from '../components/EditTweetCard'
 import TweetCard, { TweetCardType } from '../components/TweetCard'
 import Layout from '../components/Layout'
@@ -42,7 +43,11 @@ const TweetsPage: React.FC<RouteComponentProps> = () => {
         <div>
           {tweets
             .slice()
-            .reverse()
+            .sort((a: { updatedAt: string }, b: { updatedAt: string }) => {
+              return isBefore(new Date(a.updatedAt), new Date(b.updatedAt))
+                ? 1
+                : -1
+            })
             .map((item: TweetCardType) => {
               return (
                 <TweetCard

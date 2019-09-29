@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { navigate } from '@reach/router'
-
+import { formatDateTime } from '../utils'
 import { ReactComponent as TrashIcon } from '../styles/icon-trash.svg'
 import { ReactComponent as EditIcon } from '../styles/icon-edit.svg'
+import EditTweetCard from './EditTweetCard'
 
 export type TweetCardType = {
   id: string
@@ -20,10 +21,10 @@ const TweetCard = ({
   updatedAt,
   updatedBy,
   editable,
-
   onUpdateCallBack,
 }: TweetCardType) => {
   const [accountsMap, setAccountsMap] = useState()
+  const [editing, setEditing] = useState(false)
 
   useEffect(() => {
     const accountsMapStorage = localStorage.getItem('accountsMap')
@@ -49,16 +50,34 @@ const TweetCard = ({
           </div>
         </div>
       </div>
-      <div className="text-2xl my-4">{content}</div>
-      <div className="text-sm text-gray-600">{updatedAt}</div>
 
-      {editable && (
+      {editing ? (
+        <EditTweetCard
+          tweet={{
+            id,
+            content,
+          }}
+          onUpdateCallBack={() => {
+            setEditing(false)
+            onUpdateCallBack(new Date().toString())
+          }}
+        />
+      ) : (
+        <>
+          <div className="text-2xl my-4">{content}</div>
+          <div className="text-sm text-gray-600">
+            {formatDateTime(updatedAt)}
+          </div>
+        </>
+      )}
+
+      {editable && !editing && (
         <div className="flex justify-between ">
           <button
             className="hover:shadow"
             onClick={(e) => {
               e.stopPropagation()
-              console.log(`edit ${id}`)
+              setEditing(true)
             }}
           >
             <EditIcon />

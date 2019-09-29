@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { RouteComponentProps } from '@reach/router'
 import Layout from '../components/Layout'
+import { formatDateTime } from '../utils'
 
 interface TweetProps {
   id: string
@@ -29,7 +30,7 @@ const TweetPage: React.FC<RouteComponentProps<TweetProps>> = ({ id }) => {
   return (
     <Layout>
       <section className="w-1/2 border m-4 p-4">
-        <div className="text-2xl">Tweet</div>
+        <div className="text-2xl">Tweet ID: {id}</div>
 
         <hr className=" h-4 " />
 
@@ -46,7 +47,7 @@ const TweetPage: React.FC<RouteComponentProps<TweetProps>> = ({ id }) => {
         </div>
 
         <div className="text-2xl text-white">{content}</div>
-        <div className="text-sm text-gray-600">{updatedAt}</div>
+        <div className="text-sm text-gray-600">{formatDateTime(updatedAt)}</div>
       </section>
     </Layout>
   )
