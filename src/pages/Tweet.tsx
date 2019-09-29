@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { RouteComponentProps } from '@reach/router'
 import Layout from '../components/Layout'
 import { AccountStore } from '../stores/AccountStore'
-import { formatDateTime } from '../utils'
+import { formatDateTime, getTweetsMap } from '../utils'
 
 interface TweetProps {
   id: string
@@ -13,10 +13,8 @@ const TweetPage: React.FC<RouteComponentProps<TweetProps>> = ({ id }) => {
   const { getAccount } = useContext(AccountStore)
 
   useEffect(() => {
-    const tweetsMapStorage = localStorage.getItem('tweetsMap')
-
-    if (tweetsMapStorage && id) {
-      const tweetsMap = JSON.parse(tweetsMapStorage)
+    const tweetsMap = getTweetsMap()
+    if (id) {
       setTweet(tweetsMap[id])
     }
   }, [id])

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { navigate } from '@reach/router'
-import { formatDateTime } from '../utils'
+import { formatDateTime, getTweetsMap } from '../utils'
 import { ReactComponent as TrashIcon } from '../styles/icon-trash.svg'
 import { ReactComponent as EditIcon } from '../styles/icon-edit.svg'
 import EditTweetCard from './EditTweetCard'
@@ -80,10 +80,7 @@ const TweetCard = ({
             className="hover:shadow"
             onClick={(e) => {
               e.stopPropagation()
-              const tweetsMapStorage = localStorage.getItem('tweetsMap')
-              const tweetsMap = tweetsMapStorage
-                ? JSON.parse(tweetsMapStorage)
-                : {}
+              const tweetsMap = getTweetsMap()
               delete tweetsMap[id]
               localStorage.setItem('tweetsMap', JSON.stringify(tweetsMap))
               onUpdateCallBack(new Date().toString())

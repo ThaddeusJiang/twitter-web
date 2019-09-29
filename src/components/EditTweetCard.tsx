@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { getTweetsMap } from '../utils'
 
 type EditTweetCardType = {
   tweet?: {
@@ -37,10 +38,7 @@ const EditTweetCard = ({ tweet, onUpdateCallBack }: EditTweetCardType) => {
           }`}
           disabled={!content}
           onClick={() => {
-            const tweetsMapStorage = localStorage.getItem('tweetsMap')
-            const tweetsMap = tweetsMapStorage
-              ? JSON.parse(tweetsMapStorage)
-              : null
+            const tweetsMap = getTweetsMap()
             let newId
             if (id) {
               newId = id

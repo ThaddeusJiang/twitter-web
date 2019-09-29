@@ -10,3 +10,9 @@ export const formatDateTime = (date: string) => {
   }
   return ''
 }
+
+export const getTweetsMap = () => {
+  const tweetsMapStorage = localStorage.getItem('tweetsMap')
+  const tweetsMap = tweetsMapStorage ? JSON.parse(tweetsMapStorage) : null
+  return tweetsMap
+}

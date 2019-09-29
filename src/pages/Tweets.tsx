@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { RouteComponentProps } from '@reach/router'
-import { isBefore } from '../utils'
+import { isBefore, getTweetsMap } from '../utils'
 import EditTweetCard from '../components/EditTweetCard'
 import TweetCard from '../components/TweetCard'
 import Layout from '../components/Layout'
@@ -25,12 +25,9 @@ const TweetsPage: React.FC<RouteComponentProps> = () => {
   const [tweets, setTweets] = useState([])
 
   useEffect(() => {
-    const tweetsMapStorage = localStorage.getItem('tweetsMap')
-    if (tweetsMapStorage) {
-      const tweetsMap = JSON.parse(tweetsMapStorage)
-      if (tweetsMap) {
-        setTweets(Object.values(tweetsMap) || [])
-      }
+    const tweetsMap = getTweetsMap()
+    if (tweetsMap) {
+      setTweets(Object.values(tweetsMap) || [])
     }
   }, [latestUpdatedAt])
 
