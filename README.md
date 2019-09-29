@@ -1,9 +1,10 @@
 <h1 align="center">twitter-web </h1>
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
-</p>
 
 > A React exercise, build a very simple Twitter-like web application.
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/aed5adae-8377-45e6-97c5-5dc43c85ab08/deploy-status)](https://app.netlify.com/sites/twitter-web/deploys)
+
+<a href="https://gyazo.com/2b6216eb3b728fd0038f2558f4bd40d9"><video alt="Video from Gyazo" width="1000" autoplay muted loop playsinline controls><source src="https://i.gyazo.com/2b6216eb3b728fd0038f2558f4bd40d9.mp4" type="video/mp4" /></video></a>
 
 # [Specs](./specs.md)
 
@@ -12,6 +13,12 @@
 ```sh
 yarn install
 yarn start
+```
+
+- build
+
+```sh
+yarn build
 ```
 
 # What I used
