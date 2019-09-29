@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { RouteComponentProps } from '@reach/router'
 import Layout from '../components/Layout'
+import { AccountStore } from '../stores/AccountStore'
 import { formatDateTime } from '../utils'
 
 interface TweetProps {
@@ -9,15 +10,10 @@ interface TweetProps {
 
 const TweetPage: React.FC<RouteComponentProps<TweetProps>> = ({ id }) => {
   const [tweet, setTweet] = useState()
-  const [accountsMap, setAccountsMap] = useState()
+  const { getAccount } = useContext(AccountStore)
 
   useEffect(() => {
     const tweetsMapStorage = localStorage.getItem('tweetsMap')
-    const accountsMapStorage = localStorage.getItem('accountsMap')
-
-    if (accountsMapStorage) {
-      setAccountsMap(JSON.parse(accountsMapStorage))
-    }
 
     if (tweetsMapStorage && id) {
       const tweetsMap = JSON.parse(tweetsMapStorage)
@@ -25,7 +21,11 @@ const TweetPage: React.FC<RouteComponentProps<TweetProps>> = ({ id }) => {
     }
   }, [id])
 
-  const { updatedBy, content, updatedAt } = tweet || {}
+  const { updatedBy: username, content, updatedAt } = tweet || {}
+  const updatedBy = getAccount(username) || {
+    username: '',
+    firstName: '',
+  }
 
   return (
     <Layout>
@@ -37,11 +37,9 @@ const TweetPage: React.FC<RouteComponentProps<TweetProps>> = ({ id }) => {
         <div className="flex">
           <div className="avatar avatar-gray"></div>
           <div>
-            <div className="text-xl">
-              {accountsMap && accountsMap[updatedBy].firstName}
-            </div>
+            <div className="text-xl">{updatedBy && updatedBy.firstName}</div>
             <div className="text-gray-500">
-              @{accountsMap && accountsMap[updatedBy].username}
+              @{updatedBy && updatedBy.username}
             </div>
           </div>
         </div>

@@ -47,11 +47,12 @@ const EditTweetCard = ({ tweet, onUpdateCallBack }: EditTweetCardType) => {
             } else {
               const tweetIds = tweetsMap ? Object.keys(tweetsMap) : []
               if (tweetIds.length > 0) {
-                const lastTweetId = tweetIds.sort((a, b) => {
+                const sortFunction = (a: string, b: string): number => {
                   const A = parseInt(a, 10)
                   const B = parseInt(b, 10)
                   return B - A
-                })[0]
+                }
+                const lastTweetId = tweetIds.sort(sortFunction)[0]
                 newId = lastTweetId ? parseInt(lastTweetId, 10) + 1 : 1
               } else {
                 newId = 1

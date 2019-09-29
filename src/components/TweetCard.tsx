@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { navigate } from '@reach/router'
 import { formatDateTime } from '../utils'
 import { ReactComponent as TrashIcon } from '../styles/icon-trash.svg'
@@ -9,7 +9,10 @@ export type TweetCardType = {
   id: string
   content: string
   updatedAt: string
-  updatedBy: string
+  updatedBy: {
+    username: string
+    firstName: string
+  } | null
   editable: boolean
 
   onUpdateCallBack: (updatedAt: string) => void
@@ -23,16 +26,7 @@ const TweetCard = ({
   editable,
   onUpdateCallBack,
 }: TweetCardType) => {
-  const [accountsMap, setAccountsMap] = useState()
   const [editing, setEditing] = useState(false)
-
-  useEffect(() => {
-    const accountsMapStorage = localStorage.getItem('accountsMap')
-
-    if (accountsMapStorage) {
-      setAccountsMap(JSON.parse(accountsMapStorage))
-    }
-  }, [id])
 
   return (
     <div
@@ -44,9 +38,9 @@ const TweetCard = ({
       <div className="flex">
         <div className="avatar avatar-gray" />
         <div className="mx-1">
-          <div>{accountsMap && accountsMap[updatedBy].firstName}</div>
+          <div> {updatedBy && updatedBy.firstName}</div>
           <div className="text-gray-500 text-sm">
-            @{accountsMap && accountsMap[updatedBy].username}
+            @{updatedBy && updatedBy.username}
           </div>
         </div>
       </div>

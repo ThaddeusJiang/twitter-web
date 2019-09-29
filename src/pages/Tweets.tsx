@@ -1,16 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { RouteComponentProps } from '@reach/router'
 import { isBefore } from '../utils'
 import EditTweetCard from '../components/EditTweetCard'
-import TweetCard, { TweetCardType } from '../components/TweetCard'
+import TweetCard from '../components/TweetCard'
 import Layout from '../components/Layout'
 import LogoutButton from '../components/LogoutButton'
+import { AccountStore } from '../stores/AccountStore'
+
+interface TweetType {
+  id: string
+  content: string
+  updatedAt: string
+  updatedBy: string
+}
 
 const TweetsPage: React.FC<RouteComponentProps> = () => {
   // subscribe
   const [latestUpdatedAt, setLatestUpdatedAt] = useState(new Date().toString())
 
   const loginBy = sessionStorage.getItem('loginBy')
+
+  const { getAccount } = useContext(AccountStore)
 
   const [tweets, setTweets] = useState([])
 
@@ -48,14 +58,14 @@ const TweetsPage: React.FC<RouteComponentProps> = () => {
                 ? 1
                 : -1
             })
-            .map((item: TweetCardType) => {
+            .map((item: TweetType) => {
               return (
                 <TweetCard
                   key={item.id}
                   id={item.id}
                   content={item.content}
                   updatedAt={item.updatedAt}
-                  updatedBy={item.updatedBy}
+                  updatedBy={getAccount(item.updatedBy)}
                   onUpdateCallBack={setLatestUpdatedAt}
                   editable={item.updatedBy === loginBy}
                 />
