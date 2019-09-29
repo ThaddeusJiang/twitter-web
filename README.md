@@ -4,7 +4,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/aed5adae-8377-45e6-97c5-5dc43c85ab08/deploy-status)](https://app.netlify.com/sites/twitter-web/deploys)
 
-<a href="https://gyazo.com/2b6216eb3b728fd0038f2558f4bd40d9"><video alt="Video from Gyazo" width="1000" autoplay muted loop playsinline controls><source src="https://i.gyazo.com/2b6216eb3b728fd0038f2558f4bd40d9.mp4" type="video/mp4" /></video></a>
+# [Demo](https://twitter-web.netlify.com/login)
 
 # [Specs](./specs.md)
 
